@@ -1,0 +1,43 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$ql-primary: mat.define-palette(mat.$green-palette, 500);
+$ql-accent: mat.define-palette(mat.$amber-palette, 500);
+$ql-warn: mat.define-palette(mat.$red-palette, 500);
+$bodyfont: 'Poppins', sans-serif;
+
+$ql-theme: mat.define-light-theme((
+  color: (
+    primary: $ql-primary,
+    accent: $ql-accent,
+    warn: $ql-warn
+  ),
+  typography: mat.define-typography-config( $font-family: $bodyfont,),
+  density: 0,
+));
+
+@include mat.all-component-themes($ql-theme);
+
+:root {
+  --primary: #{mat.get-color-from-palette($ql-primary, 500)};
+  --secondary: #{mat.get-color-from-palette($ql-accent, 500)};
+  --secondary: #{accent};
+  --warn: #{mat.get-color-from-palette($ql_warn, 500)};
+  --bodycolor: #eef5f9;
+  --bodytext: #67757c;
+  --headingtext: #455a64;
+  --link: #1e88e5;
+  --gray: #e0e0e0;
+  --white: #fff;
+  --inactif: #{mat.get-color-from-palette($ql_warn, 50)};
+  --sidebar-text: #607d8b;
+  --sidebar-icons: #99abb4;
+  --sidebar-selected-text: #fff;
+  --menu-selected-text: #2f3d4a;
+  --menu-selected-bg: #bcd0ef;
+  --nested-table-text: #4682b4;
+  --nested-table-bg: #e6e6fa;
+  --nested-table-header-bg: #bcd0ef;
+  --nested-table-header-text: #2f3d4a;
+}
