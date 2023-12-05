@@ -16,7 +16,7 @@ export class ResourcesEffects {
 
   setcalledRessourcesSelectorEffect = createEffect(
     () => {
-      return this.store.select(resourceSelectors.SelectCalledRessources).pipe(
+      return this.store.select(resourceSelectors.selectCalledRessources).pipe(
         map((calledRessources: ICalledRessources) => {
           const result = Object.entries(calledRessources).filter(
             (entrie: [string, boolean]) =>

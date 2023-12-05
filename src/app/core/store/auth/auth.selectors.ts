@@ -3,22 +3,22 @@ import { AuthState } from './auth.reducer';
 
 export const selectAuth = createFeatureSelector<AuthState>('auth');
 
-export const IsAuthenticatedSelector = createSelector(
+export const selectIsAuthenticated = createSelector(
   selectAuth,
   (state: AuthState) =>
     !!(state.user?.id && state.jwtTokens.token && state.jwtTokens.refresh_token)
 );
-export const UserSelector = createSelector(
+export const selectUser = createSelector(
   selectAuth,
   (state: AuthState) => state.user
 );
 
-export const UserErrorSelector = createSelector(
+export const selectUserError = createSelector(
   selectAuth,
   (state: AuthState) => state.errors
 );
 
-export const JwtTokensSelector = createSelector(
+export const selectJwtTokens = createSelector(
   selectAuth,
   (state: AuthState) => state.jwtTokens
 );

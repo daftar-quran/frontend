@@ -1,18 +1,18 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { ResourcesState } from './resources.reducer';
 
-export const SelectResources =
+export const selectResources =
   createFeatureSelector<ResourcesState>('resources');
-export const SelectMoshafs = createSelector(
-  SelectResources,
+export const selectMoshafs = createSelector(
+  selectResources,
   (state: ResourcesState) => state.moshafs
 );
-export const SelectSurahs = createSelector(
-  SelectResources,
+export const selectSurahs = createSelector(
+  selectResources,
   (state: ResourcesState) => state.surahs
 );
 
-export const SelectCalledRessources = createSelector(
-  SelectResources,
+export const selectCalledRessources = createSelector(
+  selectResources,
   (state: ResourcesState) => state.calledRessources
 );
