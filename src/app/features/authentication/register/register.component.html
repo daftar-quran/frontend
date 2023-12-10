@@ -1,56 +1,28 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="flex flex-col">
-    <!-- First name -->
-    <mat-form-field>
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="email" autocomplete="username" />
-    </mat-form-field>
+<div class="flex flex-col">
+  <mat-horizontal-stepper linear #stepper class="bg-transparent">
+    <!-- Contact form -->
+    <mat-step [stepControl]="contactFormGroup" [editable]="true">
+      <app-register-contact [form]="contactFormGroup" />
+    </mat-step>
 
-    <!-- First name -->
-    <mat-form-field>
-      <mat-label>Identifiant</mat-label>
-      <input matInput formControlName="userName" autocomplete="username" />
-    </mat-form-field>
+    <!-- Personal form -->
+    <mat-step [stepControl]="personalFormGroup" [editable]="true">
+      <app-register-personal [form]="personalFormGroup" />
+    </mat-step>
 
-    <!-- Password -->
-    <mat-form-field>
-      <mat-label>Mot de passe</mat-label>
-      <input
-        matInput
-        type="password"
-        formControlName="password"
-        autocomplete="current-password"
-      />
-    </mat-form-field>
+    <!-- Pages form -->
+    <mat-step [stepControl]="pagesFormGroup" [editable]="true">
+      <app-register-pages [form]="pagesFormGroup" (submitForm)="onSubmit()" />
+    </mat-step>
+  </mat-horizontal-stepper>
 
-    <!-- First name -->
-    <mat-form-field>
-      <mat-label>Nom</mat-label>
-      <input matInput formControlName="firstName" autocomplete="username" />
-    </mat-form-field>
-
-    <!-- Second name -->
-    <mat-form-field>
-      <mat-label>Prenom</mat-label>
-      <input matInput formControlName="lastName" autocomplete="username" />
-    </mat-form-field>
-
-    <button
-      class="my-5"
-      mat-raised-button
-      color="primary"
-      type="submit"
-      [disabled]="!form.valid"
-    >
-      SUIVANT
-    </button>
-    <button
-      mat-button
-      color="primary"
-      class="underline"
-      [routerLink]="['/login']"
-    >
-      J'ai un compte
-    </button>
-  </div>
-</form>
+  <!-- I have account button -->
+  <button
+    mat-button
+    color="primary"
+    class="underline"
+    [routerLink]="['/login']"
+  >
+    J'ai un compte
+  </button>
+</div>

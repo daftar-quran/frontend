@@ -1,0 +1,41 @@
+<div class="flex flex-col gap-2">
+  <!-- Iterate over pages -->
+  <ng-container
+    *ngFor="let page of form?.controls; let index = index"
+    [formGroup]="page"
+  >
+    <div class="flex gap-2">
+      <!-- From -->
+      <div class="flex gap-2">
+        <span>De page</span>
+        <mat-form-field>
+          <input matInput formControlName="from" type="number" />
+        </mat-form-field>
+      </div>
+      <!-- To -->
+      <div class="flex gap-2">
+        <span>à</span>
+        <mat-form-field>
+          <input matInput formControlName="to" type="number" />
+        </mat-form-field>
+      </div>
+
+      <button mat-icon-button (click)="deleteRow(index)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </ng-container>
+
+  <button mat-stroked-button color="primary" (click)="addNewRow()">
+    <mat-icon>add</mat-icon>
+  </button>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="submitForm.emit()"
+    [disabled]="form.invalid"
+  >
+    TERMINER
+  </button>
+</div>

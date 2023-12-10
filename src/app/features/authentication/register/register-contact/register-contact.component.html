@@ -1,0 +1,33 @@
+<form [formGroup]="form" class="flex flex-col">
+  <!-- First name -->
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" />
+  </mat-form-field>
+
+  <!-- User name -->
+  <mat-form-field>
+    <mat-label>Identifiant</mat-label>
+    <input matInput formControlName="userName" />
+  </mat-form-field>
+
+  <!-- Password -->
+  <mat-form-field>
+    <mat-label>Mot de passe</mat-label>
+    <input
+      matInput
+      type="password"
+      formControlName="password"
+      autocomplete="current-password"
+    />
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="primary"
+    matStepperNext
+    [disabled]="form.invalid"
+  >
+    SUIVANT
+  </button>
+</form>
