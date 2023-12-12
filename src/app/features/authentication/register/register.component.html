@@ -1,0 +1,28 @@
+<div class="flex flex-col">
+  <mat-horizontal-stepper linear #stepper class="bg-transparent">
+    <!-- Contact form -->
+    <mat-step [stepControl]="contactFormGroup" [editable]="true">
+      <app-register-contact [form]="contactFormGroup" />
+    </mat-step>
+
+    <!-- Personal form -->
+    <mat-step [stepControl]="personalFormGroup" [editable]="true">
+      <app-register-personal [form]="personalFormGroup" />
+    </mat-step>
+
+    <!-- Pages form -->
+    <mat-step [stepControl]="pagesFormGroup" [editable]="true">
+      <app-register-pages [form]="pagesFormGroup" (submitForm)="onSubmit()" />
+    </mat-step>
+  </mat-horizontal-stepper>
+
+  <!-- I have account button -->
+  <button
+    mat-button
+    color="primary"
+    class="underline"
+    [routerLink]="['/login']"
+  >
+    J'ai un compte
+  </button>
+</div>

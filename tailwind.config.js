@@ -1,11 +1,22 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{html,ts}",
-  ],
+  important: true,
+  content: ['./src/**/*.{html,ts}'],
   theme: {
     fontFamily: { sans: ['var(--bodyfont)'] },
+    extend: {
+      colors: {
+        primary: 'var(--primary)',
+        secondary: 'var(--secondary)',
+        warn: 'var(--warn)',
+        success: 'var(--success)',
+        bodytext: 'var(--bodytext)',
+        bodycolor: 'var(--bodycolor)',
+        gray: 'var(--gray)',
+        link: 'var(--link)',
+        inactif: 'var(--inactif)',
+      },
+    },
   },
-  plugins: ["prettier-plugin-tailwindcss"],
-}
-
+  plugins: ['prettier-plugin-tailwindcss'],
+};

@@ -1,0 +1,15 @@
+@use '../variable' as *;
+
+.mdc-notched-outline__notch {
+  border-right: transparent;
+}
+
+.mat-focused .mat-mdc-form-field-required-marker {
+  color: $warn;
+}
+
+mat-form-field {
+  &:has(.mdc-text-field--disabled) {
+    cursor: not-allowed;
+  }
+}

@@ -2,12 +2,14 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'app-public-layout',
   standalone: true,
   imports: [RouterOutlet],
   template: `
-    <router-outlet />
+    <div class="h-full w-full">
+      <router-outlet />
+    </div>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {}
+export class PublicLayoutComponent {}

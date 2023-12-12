@@ -1,0 +1,13 @@
+<button [matMenuTriggerFor]="profile" class="mr-1" mat-icon-button>
+  <mat-icon>account_circle</mat-icon>
+  <mat-menu #profile="matMenu">
+    <button *ngIf="false" mat-menu-item>
+      <mat-icon>account_box</mat-icon>
+      {{ 'userMenu.profile' }}
+    </button>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      {{ 'authentication.logout' }}
+    </button>
+  </mat-menu>
+</button>
