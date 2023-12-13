@@ -7,15 +7,20 @@ $ql-accent: mat.define-palette(mat.$amber-palette, 500);
 $ql-warn: mat.define-palette(mat.$red-palette, 500);
 $bodyfont: 'Poppins', sans-serif;
 
-$ql-theme: mat.define-light-theme((
-  color: (
-    primary: $ql-primary,
-    accent: $ql-accent,
-    warn: $ql-warn
-  ),
-  typography: mat.define-typography-config( $font-family: $bodyfont,),
-  density: 0,
-));
+$ql-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $ql-primary,
+      accent: $ql-accent,
+      warn: $ql-warn,
+    ),
+    typography:
+      mat.define-typography-config(
+        $font-family: $bodyfont,
+      ),
+    density: 0,
+  )
+);
 
 @include mat.all-component-themes($ql-theme);
 
@@ -24,7 +29,7 @@ $ql-theme: mat.define-light-theme((
   --secondary: #{mat.get-color-from-palette($ql-accent, 500)};
   --secondary: #{accent};
   --warn: #{mat.get-color-from-palette($ql_warn, 500)};
-  --bodycolor: #eef5f9;
+  --bodycolor: #{mat.get-color-from-palette(mat.$amber-palette, 50)};
   --bodytext: #67757c;
   --headingtext: #455a64;
   --link: #1e88e5;

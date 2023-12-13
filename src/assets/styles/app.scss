@@ -94,3 +94,9 @@ h6 {
     opacity: 0.3;
   }
 }
+
+mat-nav-list a.mat-list-item.selected {
+  background: $secondary;
+  border-radius: $radius;
+  color: $sidebar-selected-text;
+}
