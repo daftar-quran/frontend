@@ -19,7 +19,27 @@ export const routes: Routes = [
         path: 'p',
         component: PrivateLayoutComponent,
         canActivate: [AuthGuard],
-        children: [],
+        children: [
+          {
+            path: '',
+            redirectTo: 'recitation',
+            pathMatch: 'full',
+          },
+          {
+            path: 'recitation',
+            loadComponent: () =>
+              import(
+                './features/recitation/components/recitation.component'
+              ).then((m) => m.RecitationComponent),
+          },
+          {
+            path: 'consolidation',
+            loadComponent: () =>
+              import(
+                './features/consolidation/components/consolidation.component'
+              ).then((m) => m.ConsolidationComponent),
+          },
+        ],
       },
     ],
   },

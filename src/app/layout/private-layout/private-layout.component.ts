@@ -1,76 +1,51 @@
-import { Router, RouterOutlet } from '@angular/router';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
-  NgZone,
-  OnInit,
-  ViewChild,
-  WritableSignal,
   inject,
-  signal,
+  OnDestroy,
 } from '@angular/core';
-import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
-import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
-
-import { selectCalledRessources } from '../../core/store/resources/resources.selector';
-import { ICalledRessources } from '@app/models';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenavContent, MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { VerticalAppHeaderComponent } from './vertical-header/vertical-header.component';
-import {
-  GetMushafs,
-  GetSurahs,
-} from '../../core/store/resources/resources.actions';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { Store } from '@ngrx/store';
+import { Logout } from '../../core/store/auth/auth.actions';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
-/** @title Responsive sidenav */
 @Component({
   selector: 'app-components-layout',
   standalone: true,
   imports: [
-    AsyncPipe,
-    NgIf,
-    NgClass,
-    NgForOf,
-    RouterOutlet,
-    VerticalAppHeaderComponent,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatButtonModule,
     MatIconModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatListModule,
+    RouterLink,
+    RouterOutlet,
   ],
   templateUrl: 'private-layout.component.html',
   styleUrls: ['private-layout.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PrivateLayoutComponent implements OnInit {
-  private ngZone = inject(NgZone);
-
-  @ViewChild('sidenavContent') sidenavContent: MatSidenavContent;
+export class PrivateLayoutComponent implements OnDestroy {
+  private store: Store = inject(Store);
+  public changeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef);
+  public media: MediaMatcher = inject(MediaMatcher);
+  private _mobileQueryListener: () => void;
   mobileQuery: MediaQueryList;
-  sidebarOpened = false;
-  private subscription = new Subscription();
-  public calledRessources$: Observable<ICalledRessources> = this.store.select(
-    selectCalledRessources
-  );
-  public displayButton: WritableSignal<boolean> = signal<boolean>(false);
-
-  constructor(
-    public router: Router,
-    public store: Store
-  ) {}
-
-  /**
-   * Scroll to Top
-   */
-  scrollToTop() {
-    this.sidenavContent.scrollTo({ top: 0, behavior: 'smooth' });
+  constructor() {
+    this.mobileQuery = this.media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
   }
-
-  ngOnInit(): void {
-    this.store.dispatch(GetSurahs());
-    this.store.dispatch(GetMushafs());
+  logout() {
+    this.store.dispatch(Logout({}));
+  }
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 }

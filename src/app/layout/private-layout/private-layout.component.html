@@ -1,102 +1,58 @@
-<ng-container
-  *ngIf="{
-    calledRessources: calledRessources$ | async
-  } as _"
+<div
+  class="absolute bottom-0 left-0 right-0 top-0 flex flex-col"
+  [class.example-is-mobile]="mobileQuery.matches"
 >
-  <!-- ============================================================== -->
-  <!-- Main wrapper - style you can find in charts.scss -->
-  <!-- ============================================================== -->
-  <div
-    class="relative bottom-0 left-0 right-0 top-0 flex flex-col overflow-hidden"
-    *ngIf="_.calledRessources.calledAll"
-  >
-    <!-- ============================================================== -->
-    <!-- Topbar - style you can find in header.scss -->
-    <!-- ============================================================== -->
-    <mat-toolbar class="relative z-[2] px-3.5 py-0" color="primary">
-      <div class="fix-width-for-horizontal flex w-full">
-        <!-- ============================================================== -->
-        <!-- Logo - style you can find in header.scss -->
-        <!-- ============================================================== -->
-        <div class="text-center md:w-[225px] md:shrink-0">
-          <a class="flex items-center leading-4 md:pt-0" href="/">
-            <!-- Logo -->
-            <span class="hidden sm:block">
-              <!-- dark Logo text -->
-              <img alt="homepage-logo " class="max-w-[148px]" [src]="" />
-            </span>
-          </a>
-        </div>
-        <!-- ============================================================== -->
-        <!-- sidebar toggle -->
-        <!-- ============================================================== -->
-        <button
-          (click)="snav.toggle()"
-          class="sidebar-toggle"
-          mat-icon-button
-          value="sidebarclosed"
-        >
-          <mat-icon>menu</mat-icon>
+  <mat-toolbar color="primary">
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 class="ml-4 pb-1">Quran Daftar</h1>
+    <span class="grow"></span>
+    <button mat-icon-button class="mr-4" [matMenuTriggerFor]="profile">
+      <mat-icon>account_circle</mat-icon>
+      <mat-menu #profile="matMenu">
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          Déconnexion
         </button>
-        <span class="grow"></span>
-        <!-- ============================================================== -->
-        <!-- app header component - style you can find in header.scss / header.component.ts-->
-        <!-- ============================================================== -->
-        <app-vertical-header class="flex items-center" />
-      </div>
-    </mat-toolbar>
-    <!-- ============================================================== -->
-    <!-- End Topbar - style you can find in charts.scss -->
-    <!-- ============================================================== -->
-    <mat-sidenav-container
-      [style.marginTop.px]="mobileQuery.matches ? 0 : 0"
-      class="shrink-0 grow basis-auto"
-    >
-      <!-- ============================================================== -->
-      <!-- Sidebar - style you can find in sidebar.scss -->
-      <!-- ============================================================== -->
-      <mat-sidenav
-        #snav
-        (close)="sidebarOpened = false"
-        (open)="sidebarOpened = true"
-        [disableClose]="mobileQuery.matches"
-        [mode]="mobileQuery.matches ? 'side' : 'over'"
-        [opened]="mobileQuery.matches"
-        class="w-64 pt-0 xl:w-72 2xl:w-80"
-        fixedTopGap="0"
-        id="snav"
-      ></mat-sidenav>
+      </mat-menu>
+    </button>
+  </mat-toolbar>
 
-      <!-- ============================================================== -->
-      <!-- Page container - style you can find in charts.scss -->
-      <!-- ============================================================== -->
-
-      <mat-sidenav-content
-        #sidenavContent
-        class="page-wrapper h-[calc(100vh_-_64px)] bg-bodycolor"
-      >
-        <app-info-bar />
-        <app-breadcrumb />
-        <div class="p-3.5">
-          <router-outlet />
-        </div>
-      </mat-sidenav-content>
-
-      <!-- ============================================================== -->
-      <!-- Page container - style you can find in charts.scss -->
-      <!-- ============================================================== -->
-    </mat-sidenav-container>
-  </div>
-  <button
-    mat-fab
-    [hidden]="!displayButton()"
-    class="fixed bottom-3 right-3 z-50"
-    (click)="scrollToTop()"
+  <mat-sidenav-container
+    [style.marginTop.px]="mobileQuery.matches ? 0 : 0"
+    class="shrink-0 grow basis-auto"
   >
-    <mat-icon>keyboard_arrow_up</mat-icon>
-  </button>
+    <mat-sidenav
+      #snav
+      [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobileQuery.matches"
+      class="w-64 pt-0 xl:w-72 2xl:w-80"
+      fixedTopGap="0"
+    >
+      <h1 class="bg-amber-300/50 px-8 py-4 font-bold">Bonjour Test</h1>
+      <mat-nav-list>
+        <a
+          mat-list-item
+          [routerLink]="'recitation'"
+          routerLinkActive="selected"
+        >
+          Recitation
+        </a>
+        <a
+          mat-list-item
+          [routerLink]="'consolidation'"
+          routerLinkActive="selected"
+        >
+          Consolidation
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
 
-  <app-download-progress
-    class="fixed bottom-0 right-20 z-10 w-96 max-w-max md:block"
-  />
-</ng-container>
+    <mat-sidenav-content class="h-[calc(100vh_-_64px)] bg-bodycolor">
+      <div class="p-3.5">
+        <router-outlet />
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
