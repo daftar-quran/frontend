@@ -13,7 +13,7 @@ import { Logout } from '../../core/store/auth/auth.actions';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-components-layout',
@@ -25,6 +25,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     MatSidenavModule,
     MatListModule,
     RouterLink,
+    RouterLinkActive,
     RouterOutlet,
   ],
   templateUrl: 'private-layout.component.html',
@@ -45,6 +46,7 @@ export class PrivateLayoutComponent implements OnDestroy {
   logout() {
     this.store.dispatch(Logout({}));
   }
+
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }

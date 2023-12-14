@@ -95,8 +95,8 @@ h6 {
   }
 }
 
-mat-nav-list a.mat-list-item.selected {
-  background: $secondary;
-  border-radius: $radius;
-  color: $sidebar-selected-text;
+.selected {
+  background: $secondary !important;
+  border-radius: $radius !important;
+  color: $sidebar-selected-text !important;
 }

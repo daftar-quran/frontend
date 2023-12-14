@@ -27,7 +27,6 @@ $ql-theme: mat.define-light-theme(
 :root {
   --primary: #{mat.get-color-from-palette($ql-primary, 500)};
   --secondary: #{mat.get-color-from-palette($ql-accent, 500)};
-  --secondary: #{accent};
   --warn: #{mat.get-color-from-palette($ql_warn, 500)};
   --bodycolor: #{mat.get-color-from-palette(mat.$amber-palette, 50)};
   --bodytext: #67757c;
