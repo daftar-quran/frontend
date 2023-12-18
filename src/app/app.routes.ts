@@ -22,15 +22,13 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            redirectTo: 'recitation',
+            redirectTo: 'recitations',
             pathMatch: 'full',
           },
           {
-            path: 'recitation',
-            loadComponent: () =>
-              import(
-                './features/recitation/components/recitation.component'
-              ).then((m) => m.RecitationComponent),
+            path: 'recitations',
+            loadChildren: () =>
+              import('./features/recitations/recitations.routes'),
           },
           {
             path: 'consolidation',
