@@ -1,7 +1,17 @@
+import { IRecitationDetail, RecitationDetail } from './recitation-detail.model';
+
 export interface IRecitation {
-  id?: number;
-  page: number;
+  studentId: number;
+  profId: number;
   date: string;
-  sura: string;
-  tikrar: number;
+  details: IRecitationDetail[];
+}
+
+export class Recitation implements IRecitation {
+  constructor(
+    public studentId: number = null,
+    public profId: number = null,
+    public date: string = null,
+    public details: IRecitationDetail[] = [new RecitationDetail()]
+  ) {}
 }

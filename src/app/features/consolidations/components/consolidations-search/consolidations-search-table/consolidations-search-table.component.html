@@ -1,9 +1,9 @@
-@if ({ recitations: recitations$ | async }) {
-  @if (recitations?.data?.length) {
+@if ({ consolidations: consolidations$ | async }) {
+  @if (consolidations?.data?.length) {
     <mat-card>
       <mat-card-content>
         <div class="responsive-table">
-          <mat-table [dataSource]="recitations" matSort>
+          <mat-table [dataSource]="consolidations" matSort>
             <!-- Page -->
             <ng-container matColumnDef="page">
               <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -64,7 +64,7 @@
               (click)="goToDetails(row)"
             />
           </mat-table>
-          @if (recitations.data.length > MIN_PAGE_SIZE_OPTIONS) {
+          @if (consolidations.data.length > MIN_PAGE_SIZE_OPTIONS) {
             <mat-paginator />
           }
         </div>

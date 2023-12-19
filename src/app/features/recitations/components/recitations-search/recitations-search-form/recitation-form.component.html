@@ -1,0 +1,124 @@
+@if (form) {
+  <div class="flex w-full flex-col flex-wrap gap-2">
+    <mat-card>
+      <mat-card-content>
+        <form [formGroup]="form">
+          <div class="grid grid-cols-1 gap-x-5 gap-y-1 lg:grid-cols-2">
+            <!-- Student -->
+            <mat-form-field>
+              <mat-label>Elève</mat-label>
+              <input type="text" matInput formControlName="studentId" />
+              <mat-error
+                appFormControlError
+                [errors]="form.controls.studentId.errors"
+              />
+            </mat-form-field>
+
+            <!-- Professor -->
+            <mat-form-field>
+              <mat-label>Chaikh</mat-label>
+              <input type="text" matInput formControlName="profId" />
+              <mat-error
+                appFormControlError
+                [errors]="form.controls.profId.errors"
+              />
+            </mat-form-field>
+
+            <!-- Date -->
+            <mat-form-field>
+              <mat-label>Date</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="date" />
+              <mat-datepicker-toggle matIconSuffix [for]="picker" />
+              <mat-datepicker #picker />
+              <mat-error
+                appFormControlError
+                [errors]="form.controls.date.errors"
+              />
+            </mat-form-field>
+          </div>
+
+          <!-- Details -->
+          @if (form?.controls.details?.length) {
+            <div class="flex flex-col gap-4">
+              <!-- Iterate over details -->
+              @for (detail of form?.controls.details.controls; track detail) {
+                <mat-divider class="col-span-1 m-4 lg:col-span-2" />
+                <div class="grid grid-cols-1 gap-x-5 gap-y-1 lg:grid-cols-2">
+                  <ng-container [formGroup]="detail">
+                    <!-- Page -->
+                    <mat-form-field>
+                      <mat-label>Page</mat-label>
+                      <input matInput formControlName="page" type="number" />
+                      <mat-error
+                        appFormControlError
+                        [errors]="detail.controls.page.errors"
+                      />
+                    </mat-form-field>
+
+                    <!-- Sourat -->
+                    <mat-form-field>
+                      <mat-label>Sourat</mat-label>
+                      <input matInput formControlName="sourat" type="text" />
+                      <mat-error
+                        appFormControlError
+                        [errors]="detail.controls.sourat.errors"
+                      />
+                    </mat-form-field>
+
+                    <!-- Appreciation -->
+                    <mat-form-field>
+                      <mat-label>Appreciation</mat-label>
+                      <input matInput formControlName="appreciation" />
+                      <mat-error
+                        appFormControlError
+                        [errors]="detail.controls.sourat.errors"
+                      />
+                    </mat-form-field>
+
+                    <!-- Observation -->
+                    <mat-form-field>
+                      <mat-label>Observation</mat-label>
+                      <textarea
+                        matInput
+                        formControlName="observation"
+                      ></textarea>
+                      <mat-error
+                        appFormControlError
+                        [errors]="detail.controls.sourat.errors"
+                      />
+                    </mat-form-field>
+
+                    <!-- Remove detail button -->
+                    @if (!$first) {
+                      <button
+                        mat-stroked-button
+                        color="warn"
+                        (click)="deleteRow($index)"
+                      >
+                        <mat-icon fontIcon="remove" />
+                      </button>
+                    }
+                  </ng-container>
+                </div>
+              }
+
+              <button mat-stroked-button color="primary" (click)="addNewRow()">
+                <mat-icon fontIcon="add" />
+              </button>
+            </div>
+          }
+        </form>
+      </mat-card-content>
+    </mat-card>
+    <div class="flex justify-center">
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="saveRecitation()"
+        [disabled]="form.invalid"
+      >
+        Sauvegarder
+      </button>
+    </div>
+  </div>
+}

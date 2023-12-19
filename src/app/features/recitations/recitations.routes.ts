@@ -1,8 +1,6 @@
 import { Route } from '@angular/router';
 import { RecitationsComponent } from './components/recitations.component';
-import { RecitationsSearchComponent } from './components/recitations-search/recitations-search.component';
-// import { RecitationAddComponent } from './components/recitation-add/recitation-add.component';
-// import { RecitationViewComponent } from './components/recitation-view/recitation-view.component';
+import { RecitationFormComponent } from './components/recitations-search/recitations-search-form/recitation-form.component';
 
 export default [
   {
@@ -11,19 +9,8 @@ export default [
     children: [
       {
         path: '',
-        component: RecitationsSearchComponent,
+        component: RecitationFormComponent,
       },
-      // {
-      //   path: 'add',
-      //   component: RecitationAddComponent,
-      //   data: {
-      //     accessPermissions: [PermissionType.WRITE],
-      //   },
-      // },
-      // {
-      //   path: ':idrecitation',
-      //   component: RecitationViewComponent,
-      // },
     ],
   },
 ] as Route[];

@@ -14,13 +14,13 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { MIN_PAGE_SIZE_OPTIONS } from '@app/config';
-import { IRecitation } from 'app/features/recitations/models';
+import { IConsolidation } from 'app/features/consolidations/models';
 import { Observable, tap } from 'rxjs';
-import { RecitationsStore } from '../../../recitations.store';
+import { ConsolidationsStore } from '../../../consolidations.store';
 
 @Component({
-  selector: 'app-recitations-search-table',
-  templateUrl: './recitations-search-table.component.html',
+  selector: 'app-consolidations-search-table',
+  templateUrl: './consolidations-search-table.component.html',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
@@ -34,8 +34,8 @@ import { RecitationsStore } from '../../../recitations.store';
     MatCardModule,
   ],
 })
-export class RecitationsSearchTableComponent {
-  private recitationsStore = inject(RecitationsStore);
+export class ConsolidationsSearchTableComponent {
+  private consolidationsStore = inject(ConsolidationsStore);
   private router = inject(Router);
   private cdr = inject(ChangeDetectorRef);
 
@@ -44,30 +44,32 @@ export class RecitationsSearchTableComponent {
 
   public MIN_PAGE_SIZE_OPTIONS = MIN_PAGE_SIZE_OPTIONS;
   public columns = ['page', 'date', 'sura', 'tikrar', 'actions'];
-  public recitations$: Observable<IRecitation[]> =
-    this.recitationsStore.allRecitations$.pipe(
-      tap((recitations) => {
-        if (this.recitations) {
-          // If recitations already exist, update the data property with new recitations
-          this.recitations.data = [...recitations];
+  public consolidations$: Observable<IConsolidation[]> =
+    this.consolidationsStore.allConsolidations$.pipe(
+      tap((consolidations) => {
+        if (this.consolidations) {
+          // If consolidations already exist, update the data property with new consolidations
+          this.consolidations.data = [...consolidations];
         } else {
-          // If recitations do not exist, create a new MatTableDataSource with recitations as data
-          this.recitations = new MatTableDataSource<IRecitation>(recitations);
+          // If consolidations do not exist, create a new MatTableDataSource with consolidations as data
+          this.consolidations = new MatTableDataSource<IConsolidation>(
+            consolidations
+          );
         }
 
         this.cdr.detectChanges();
-        this.recitations.paginator = this.paginator;
-        this.recitations.sort = this.sort;
+        this.consolidations.paginator = this.paginator;
+        this.consolidations.sort = this.sort;
       })
     );
 
-  public recitations: MatTableDataSource<IRecitation>;
+  public consolidations: MatTableDataSource<IConsolidation>;
 
   /**
-   * Navigates to the permissions page for the given recitation.
-   * @param recitation IRecitation.
+   * Navigates to the permissions page for the given consolidation.
+   * @param consolidation IConsolidation.
    */
-  public goToDetails(recitation: IRecitation): void {
-    this.router.navigate(['/p/settings/recitations', recitation.id]);
+  public goToDetails(consolidation: IConsolidation): void {
+    this.router.navigate(['/p/settings/consolidations', consolidation.id]);
   }
 }
