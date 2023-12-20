@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,7 +12,6 @@ import { IRegisterPageFormGroup, RegisterPageFormGroup } from '../models';
   selector: 'app-register-pages',
   standalone: true,
   imports: [
-    NgFor,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,

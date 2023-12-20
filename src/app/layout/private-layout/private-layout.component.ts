@@ -1,3 +1,4 @@
+import { MediaMatcher } from '@angular/cdk/layout';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -6,17 +7,19 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Logout } from '../../core/store/auth/auth.actions';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
-import { MediaMatcher } from '@angular/cdk/layout';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-components-layout',
+  templateUrl: 'private-layout.component.html',
+  styleUrl: 'private-layout.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     MatIconModule,
@@ -28,14 +31,12 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
     RouterLinkActive,
     RouterOutlet,
   ],
-  templateUrl: 'private-layout.component.html',
-  styleUrls: ['private-layout.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PrivateLayoutComponent implements OnDestroy {
   private store: Store = inject(Store);
   public changeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef);
   public media: MediaMatcher = inject(MediaMatcher);
+
   private _mobileQueryListener: () => void;
   mobileQuery: MediaQueryList;
   constructor() {
@@ -43,7 +44,7 @@ export class PrivateLayoutComponent implements OnDestroy {
     this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
-  logout() {
+  public logout(): void {
     this.store.dispatch(Logout({}));
   }
 

@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { PublicLayoutComponent } from './layout/public-layout/public-layout.component';
+import { AuthGuard } from './core/auth/auth.guard';
 import { UnAuthGuard } from './core/auth/unAuth.guard';
 import { PrivateLayoutComponent } from './layout/private-layout/private-layout.component';
-import { AuthGuard } from './core/auth/auth.guard';
+import { PublicLayoutComponent } from './layout/public-layout/public-layout.component';
 
 export const routes: Routes = [
   {
@@ -22,22 +22,18 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            redirectTo: 'recitation',
+            redirectTo: 'recitations',
             pathMatch: 'full',
           },
           {
-            path: 'recitation',
-            loadComponent: () =>
-              import(
-                './features/recitation/components/recitation.component'
-              ).then((m) => m.RecitationComponent),
+            path: 'recitations',
+            loadChildren: () =>
+              import('./features/recitations/recitations.routes'),
           },
           {
-            path: 'consolidation',
-            loadComponent: () =>
-              import(
-                './features/consolidation/components/consolidation.component'
-              ).then((m) => m.ConsolidationComponent),
+            path: 'consolidations',
+            loadChildren: () =>
+              import('./features/consolidations/consolidations.routes'),
           },
         ],
       },
