@@ -1,32 +1,35 @@
 export interface IUser {
   id: number;
   actif: boolean;
-  first_name: string;
-  last_name: string;
+  pseudo: string;
+  firstname: string;
+  lastname: string;
   email: string;
-  login: string;
+  is_admin: boolean;
   mobile: string;
-  date_of_birth: string;
+  birthdate: string;
 }
 
 export class User implements IUser {
   id: number;
   actif: boolean;
-  first_name: string;
-  last_name: string;
+  pseudo: string;
+  firstname: string;
+  lastname: string;
   email: string;
-  login: string;
+  is_admin: boolean;
   mobile: string;
-  date_of_birth: string;
+  birthdate: string;
 
   constructor() {
     this.id = null;
-    this.first_name = null;
-    this.last_name = null;
+    this.firstname = null;
+    this.lastname = null;
     this.email = null;
     this.mobile = null;
     this.actif = false;
-    this.login = null;
-    this.date_of_birth = null;
+    this.pseudo = null;
+    this.birthdate = null;
+    this.is_admin = false;
   }
 }

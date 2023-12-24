@@ -6,7 +6,11 @@ export const selectAuth = createFeatureSelector<AuthState>('auth');
 export const selectIsAuthenticated = createSelector(
   selectAuth,
   (state: AuthState) =>
-    !!(state.user?.id && state.jwtTokens.token && state.jwtTokens.refresh_token)
+    !!(
+      state.user?.id &&
+      state.jwtTokens.AuthenticationResult.AccessToken &&
+      state.jwtTokens.AuthenticationResult.RefreshToken
+    )
 );
 export const selectUser = createSelector(
   selectAuth,
@@ -20,5 +24,10 @@ export const selectUserError = createSelector(
 
 export const selectJwtTokens = createSelector(
   selectAuth,
-  (state: AuthState) => state.jwtTokens
+  (state: AuthState) => state.jwtTokens.AuthenticationResult
+);
+
+export const selectRefreshTokenInProgress = createSelector(
+  selectAuth,
+  (state: AuthState) => state.refreshTokenInProgress
 );

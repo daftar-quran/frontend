@@ -19,19 +19,17 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MAT_PAGINATOR_DEFAULT_OPTIONS } from '@angular/material/paginator';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { FR_DATE_FORMATS } from '@app/helpers';
-import { provideEffects } from '@ngrx/effects';
-import { provideStore } from '@ngrx/store';
-import { provideStoreDevtools } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
-import { routes } from './app.routes';
-import { DEFAULT_PAGE_SIZE, PAGE_SIZE_OPTIONS } from './config';
-import { metaReducers, reducers } from './core/store/app.state';
-import { AuthEffects } from './core/store/auth/auth.effects';
-import { ResourcesEffects } from './core/store/resources/resources.effects';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     importProvidersFrom([HttpClientModule]),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true,
+    },
     provideRouter(routes),
     provideAnimations(),
     {

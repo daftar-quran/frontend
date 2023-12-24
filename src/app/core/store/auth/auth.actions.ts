@@ -1,11 +1,8 @@
 import { createAction, props } from '@ngrx/store';
-import { IJwtTokens, IUser, IQlError, ILoginRequest } from '@app/models';
-import { IResetPasswordConfirmRequest } from '../../auth/models/reset-password-confirm-request.model';
+import { IJwtTokens, IUser, IQlError } from '@app/models';
+import { ILogin, IResetPasswordConfirmRequest } from '../../auth/models';
 
-export const Login = createAction(
-  '[Auth] Login',
-  props<{ request: ILoginRequest }>()
-);
+export const Login = createAction('[Auth] Login', props<{ request: ILogin }>());
 export const LoginSuccess = createAction(
   '[Auth] Login Success',
   props<{ jwtTokens: IJwtTokens }>()
@@ -26,7 +23,7 @@ export const InitializeAuthState = createAction('[Auth] Initialize Auth State');
 export const RefreshToken = createAction('[Auth] RefreshToken');
 export const RefreshTokenSuccess = createAction(
   '[Auth] RefreshToken Success',
-  props<{ token: string; refresh_token: string }>()
+  props<{ jwtTokens: IJwtTokens }>()
 );
 export const RefreshTokenError = createAction(
   '[Auth] RefreshToken Error',
@@ -64,4 +61,8 @@ export const ResetPasswordSuccess = createAction(
 export const CheckResetPasswordToken = createAction(
   '[Auth] Check Reset Password Token',
   props<{ token: string }>()
+);
+export const SetRefreshTokenInProgress = createAction(
+  '[Auth] Set RefreshToken In Progress',
+  props<{ refreshTokenInProgress: boolean }>()
 );
