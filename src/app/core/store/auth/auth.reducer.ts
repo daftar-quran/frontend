@@ -4,6 +4,7 @@ import { IJwtTokens, IQlError, IUser, JwtTokens, User } from '@app/models';
 
 export interface AuthState {
   jwtTokens: IJwtTokens;
+  refreshTokenInProgress: boolean;
   user: IUser;
   errors?: IQlError;
 }
@@ -11,6 +12,7 @@ export interface AuthState {
 // Here is the initial state set if no changes happened
 export const initialAuthState: AuthState = {
   jwtTokens: new JwtTokens(),
+  refreshTokenInProgress: false,
   user: new User(),
   errors: null,
 };
@@ -19,6 +21,8 @@ const featureReducer = createReducer(
   initialAuthState,
   on(
     featureActions.LoginSuccess,
+    featureActions.RefreshTokenSuccess,
+    featureActions.SetRefreshTokenInProgress,
     featureActions.ForgotResetPasswordError,
     (state, action) => ({
       ...state,
@@ -27,14 +31,6 @@ const featureReducer = createReducer(
   ),
   on(featureActions.InitializeAuthState, () => ({
     ...initialAuthState,
-  })),
-  on(featureActions.RefreshTokenSuccess, (state, { token, refresh_token }) => ({
-    ...state,
-    jwtTokens: {
-      ...state.jwtTokens,
-      token,
-      refresh_token,
-    },
   })),
   on(
     featureActions.RefreshTokenError,
