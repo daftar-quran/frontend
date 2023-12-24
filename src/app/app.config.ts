@@ -1,4 +1,8 @@
-import { ApplicationConfig, isDevMode } from '@angular/core';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  isDevMode,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -21,9 +25,17 @@ import {
   MomentDateAdapter,
 } from '@angular/material-moment-adapter';
 import { FR_DATE_FORMATS } from '@app/helpers';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    importProvidersFrom([HttpClientModule]),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true,
+    },
     provideRouter(routes),
     provideAnimations(),
     {

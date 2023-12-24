@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 
 export interface ILoginFormGroupModel {
-  login: FormControl<string>;
-  password: FormControl<string>;
+  USERNAME: FormControl<string>;
+  PASSWORD: FormControl<string>;
 }

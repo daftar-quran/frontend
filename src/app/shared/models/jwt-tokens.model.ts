@@ -1,14 +1,24 @@
+export interface IAuthenticationResult {
+  AccessToken: string;
+  ExpiresIn: number;
+  IdToken: string;
+  RefreshToken: string;
+  TokenType: string;
+}
 export interface IJwtTokens {
-  token: string;
-  refresh_token: string;
+  AuthenticationResult: IAuthenticationResult;
 }
 
 export class JwtTokens implements IJwtTokens {
-  token: string;
-  refresh_token: string;
+  AuthenticationResult: IAuthenticationResult;
 
   constructor() {
-    this.token = null;
-    this.refresh_token = null;
+    this.AuthenticationResult = {
+      AccessToken: null,
+      ExpiresIn: null,
+      IdToken: null,
+      RefreshToken: null,
+      TokenType: null,
+    };
   }
 }
