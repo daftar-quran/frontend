@@ -1,6 +1,17 @@
-import { Action, createReducer, on } from '@ngrx/store';
-import * as featureActions from '../auth/auth.actions';
 import { IJwtTokens, IQlError, IUser, JwtTokens, User } from '@app/models';
+import { Action, createReducer, on } from '@ngrx/store';
+import {
+  ForgotResetPasswordError,
+  GetUserError,
+  InitializeAuthState,
+  LoginError,
+  LoginSuccess,
+  RefreshTokenError,
+  RefreshTokenSuccess,
+  RegisterError,
+  RegisterSuccess,
+  SetRefreshTokenInProgress,
+} from './auth.actions';
 
 export interface AuthState {
   jwtTokens: IJwtTokens;
@@ -20,28 +31,25 @@ export const initialAuthState: AuthState = {
 const featureReducer = createReducer(
   initialAuthState,
   on(
-    featureActions.LoginSuccess,
-    featureActions.RefreshTokenSuccess,
-    featureActions.SetRefreshTokenInProgress,
-    featureActions.ForgotResetPasswordError,
+    LoginSuccess,
+    RegisterSuccess,
+    RefreshTokenSuccess,
+    SetRefreshTokenInProgress,
+    ForgotResetPasswordError,
     (state, action) => ({
       ...state,
       ...action,
     })
   ),
-  on(featureActions.InitializeAuthState, () => ({
+  on(InitializeAuthState, () => ({
     ...initialAuthState,
   })),
-  on(
-    featureActions.RefreshTokenError,
-    featureActions.LoginError,
-    (state, { errors }) => ({
-      ...state,
-      jwtTokens: new JwtTokens(),
-      errors,
-    })
-  ),
-  on(featureActions.GetUserError, (state, { errors }) => ({
+  on(RefreshTokenError, LoginError, RegisterError, (state, { errors }) => ({
+    ...state,
+    jwtTokens: new JwtTokens(),
+    errors,
+  })),
+  on(GetUserError, (state, { errors }) => ({
     ...state,
     user: new User(),
     errors,

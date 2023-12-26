@@ -1,7 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Actions, createEffect, ofType, concatLatestFrom } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { catchError, finalize, of, switchMap, tap } from 'rxjs';
+import { Router } from '@angular/router';
 import {
   IAuthenticationResult,
   IJwtTokens,
@@ -9,7 +8,12 @@ import {
   IUser,
   QlErrorClass,
 } from '@app/models';
-import { HttpErrorResponse } from '@angular/common/http';
+import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { ToastrService } from 'ngx-toastr';
+import { catchError, finalize, of, switchMap, tap } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AuthService } from '../../auth/auth.service';
 import {
   GetCurrentUser,
   Login,
@@ -24,8 +28,6 @@ import {
   RegisterSuccess,
   SetRefreshTokenInProgress,
 } from './auth.actions';
-import { AuthService } from '../../auth/auth.service';
-import { map } from 'rxjs/operators';
 import { selectJwtTokens } from './auth.selectors';
 
 @Injectable()
@@ -33,6 +35,8 @@ export class AuthEffects {
   private actions$: Actions = inject(Actions);
   private store: Store = inject(Store);
   private authService: AuthService = inject(AuthService);
+  private toastr: ToastrService = inject(ToastrService);
+  private router: Router = inject(Router);
 
   LoginEffect = createEffect(() => {
     return this.actions$.pipe(
@@ -65,8 +69,12 @@ export class AuthEffects {
       switchMap((data) =>
         this.authService.register(data.request).pipe(
           map((user: IUser) => {
-            this.store.dispatch(RegisterSuccess({ user }));
-            return GetCurrentUser();
+            this.router.navigate(['/login']);
+            this.toastr.success(
+              "Opération terminée avec succès. Un email a été envoyé à l'adresse indiquée pour vous permettre de créer un mot de passe"
+            );
+
+            return RegisterSuccess({ user });
           }),
           catchError((error: HttpErrorResponse) => {
             const iWsError: IQlError = new QlErrorClass(error);

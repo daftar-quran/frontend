@@ -23,6 +23,7 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { environment } from 'environments/environment';
+import { ToastrModule } from 'ngx-toastr';
 import { routes } from './app.routes';
 import { DEFAULT_PAGE_SIZE, PAGE_SIZE_OPTIONS } from './config';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
@@ -32,7 +33,10 @@ import { ResourcesEffects } from './core/store/resources/resources.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    importProvidersFrom([HttpClientModule]),
+    importProvidersFrom([
+      HttpClientModule,
+      ToastrModule.forRoot({ preventDuplicates: true }),
+    ]),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
