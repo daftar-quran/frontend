@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
   MomentDateAdapter,
@@ -19,8 +19,16 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MAT_PAGINATOR_DEFAULT_OPTIONS } from '@angular/material/paginator';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { FR_DATE_FORMATS } from '@app/helpers';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { provideEffects } from '@ngrx/effects';
+import { provideStore } from '@ngrx/store';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { environment } from 'environments/environment';
+import { routes } from './app.routes';
+import { DEFAULT_PAGE_SIZE, PAGE_SIZE_OPTIONS } from './config';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
+import { metaReducers, reducers } from './core/store/app.state';
+import { AuthEffects } from './core/store/auth/auth.effects';
+import { ResourcesEffects } from './core/store/resources/resources.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [

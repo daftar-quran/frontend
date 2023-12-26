@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   FormArray,
   FormControl,
@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
 import {
   IRegisterContactFormGroup,
   IRegisterPageFormGroup,
@@ -41,22 +42,24 @@ import { RegisterPersonalComponent } from './register-personal/register-personal
   ],
 })
 export class RegisterComponent {
+  private store: Store = inject(Store);
+
   public contactFormGroup: FormGroup<IRegisterContactFormGroup> =
     new FormGroup<IRegisterContactFormGroup>({
       email: new FormControl<string>('', [
         Validators.required,
         Validators.email,
       ]),
-      userName: new FormControl<string>('', Validators.required),
+      pseudo: new FormControl<string>('', Validators.required),
       password: new FormControl<string>('', Validators.required),
     });
 
   public personalFormGroup: FormGroup<IRegisterPersonalFormGroup> =
     new FormGroup<IRegisterPersonalFormGroup>({
-      firstName: new FormControl<string>('', Validators.required),
-      lastName: new FormControl<string>('', Validators.required),
+      firstname: new FormControl<string>('', Validators.required),
+      lastname: new FormControl<string>('', Validators.required),
       city: new FormControl<string>('', Validators.required),
-      birthDate: new FormControl<string>('', Validators.required),
+      birthdate: new FormControl<string>('', Validators.required),
     });
 
   public pagesFormGroup: FormArray<FormGroup<IRegisterPageFormGroup>> =
@@ -74,6 +77,6 @@ export class RegisterComponent {
       ...this.pagesFormGroup.getRawValue(),
     };
     console.log(request);
-    //   this.store.dispatch(Register({ request }));
+    // this.store.dispatch(Register({ request }));
   }
 }

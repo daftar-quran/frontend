@@ -2,13 +2,13 @@
   <!-- First name -->
   <mat-form-field>
     <mat-label>Nom</mat-label>
-    <input matInput formControlName="firstName" />
+    <input matInput formControlName="firstname" />
   </mat-form-field>
 
   <!-- Second name -->
   <mat-form-field>
     <mat-label>Prenom</mat-label>
-    <input matInput formControlName="lastName" />
+    <input matInput formControlName="lastname" />
   </mat-form-field>
 
   <!-- City -->
@@ -20,7 +20,7 @@
   <!-- Birth date -->
   <mat-form-field>
     <mat-label>Date de naissance</mat-label>
-    <input matInput [matDatepicker]="picker" formControlName="birthDate" />
+    <input matInput [matDatepicker]="picker" formControlName="birthdate" />
     <mat-datepicker-toggle matIconSuffix [for]="picker" />
     <mat-datepicker #picker />
   </mat-form-field>

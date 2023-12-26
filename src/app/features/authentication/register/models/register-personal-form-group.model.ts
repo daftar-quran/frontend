@@ -1,8 +1,8 @@
 import { FormControl } from '@angular/forms';
 
 export interface IRegisterPersonalFormGroup {
-  firstName: FormControl<string>;
-  lastName: FormControl<string>;
+  firstname: FormControl<string>;
+  lastname: FormControl<string>;
   city: FormControl<string>;
-  birthDate: FormControl<string>;
+  birthdate: FormControl<string>;
 }

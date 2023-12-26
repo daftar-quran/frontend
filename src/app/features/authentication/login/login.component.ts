@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,21 +6,20 @@ import {
   OnInit,
 } from '@angular/core';
 import {
-  ReactiveFormsModule,
-  FormGroup,
-  Validators,
   FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ILoginFormGroupModel } from './models/login-form-group.model';
+import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Login } from '../../../core/store/auth/auth.actions';
 import { ILogin } from '../../../core/auth/models';
+import { Login } from '../../../core/store/auth/auth.actions';
+import { ILoginFormGroupModel } from './models/login-form-group.model';
 
 @Component({
   selector: 'app-login',
@@ -37,8 +37,9 @@ import { ILogin } from '../../../core/auth/models';
   ],
 })
 export class LoginComponent implements OnInit {
-  public form: FormGroup<ILoginFormGroupModel>;
   private store: Store = inject(Store);
+
+  public form: FormGroup<ILoginFormGroupModel>;
 
   ngOnInit(): void {
     // reset Auth Error
