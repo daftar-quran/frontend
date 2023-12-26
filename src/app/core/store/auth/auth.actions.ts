@@ -1,5 +1,5 @@
+import { IJwtTokens, IQlError, IUser } from '@app/models';
 import { createAction, props } from '@ngrx/store';
-import { IJwtTokens, IUser, IQlError } from '@app/models';
 import { ILogin, IResetPasswordConfirmRequest } from '../../auth/models';
 
 export const Login = createAction('[Auth] Login', props<{ request: ILogin }>());
@@ -9,6 +9,18 @@ export const LoginSuccess = createAction(
 );
 export const LoginError = createAction(
   '[Auth] Login Error',
+  props<{ errors: IQlError }>()
+);
+export const Register = createAction(
+  '[Auth] Register',
+  props<{ request: IUser }>()
+);
+export const RegisterSuccess = createAction(
+  '[Auth] Register Success',
+  props<{ user: IUser }>()
+);
+export const RegisterError = createAction(
+  '[Auth] Register Error',
   props<{ errors: IQlError }>()
 );
 export const SaveAuthState = createAction(

@@ -12,7 +12,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { RouterLink } from '@angular/router';
+import { IUser } from '@app/models';
 import { Store } from '@ngrx/store';
+import { Register } from 'app/core/store/auth/auth.actions';
+import * as moment from 'moment';
 import {
   IRegisterContactFormGroup,
   IRegisterPageFormGroup,
@@ -58,7 +61,6 @@ export class RegisterComponent {
     new FormGroup<IRegisterPersonalFormGroup>({
       firstname: new FormControl<string>('', Validators.required),
       lastname: new FormControl<string>('', Validators.required),
-      city: new FormControl<string>('', Validators.required),
       birthdate: new FormControl<string>('', Validators.required),
     });
 
@@ -71,12 +73,14 @@ export class RegisterComponent {
    * Récupération de du register et mot de passe et authentification de l'utilisateur
    */
   public onSubmit(): void {
-    const request: unknown = {
+    const request: IUser = {
       ...this.contactFormGroup.getRawValue(),
       ...this.personalFormGroup.getRawValue(),
-      ...this.pagesFormGroup.getRawValue(),
+      birthdate: moment(this.personalFormGroup.getRawValue().birthdate).format(
+        'YYYY-MM-DD'
+      ),
+      // ...this.pagesFormGroup.getRawValue(),
     };
-    console.log(request);
-    // this.store.dispatch(Register({ request }));
+    this.store.dispatch(Register({ request }));
   }
 }

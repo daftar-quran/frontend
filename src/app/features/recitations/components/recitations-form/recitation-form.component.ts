@@ -14,12 +14,12 @@ import {
   RecitationFormGroup,
 } from 'app/features/recitations/models/recitation-form-group.model';
 
+import { MatDividerModule } from '@angular/material/divider';
 import {
   IRecitationDetailFormGroup,
   RecitationDetailFormGroup,
-} from '../../../models';
-import { RecitationsStore } from './../../../recitations.store';
-import { MatDividerModule } from '@angular/material/divider';
+} from '../../models';
+import { RecitationsStore } from '../../recitations.store';
 
 @Component({
   selector: 'app-recitation-form',

@@ -1,12 +1,12 @@
 export interface IUser {
-  id: number;
-  actif: boolean;
+  id?: number;
+  actif?: boolean;
   pseudo: string;
   firstname: string;
   lastname: string;
   email: string;
-  is_admin: boolean;
-  mobile: string;
+  is_admin?: boolean;
+  mobile?: string;
   birthdate: string;
 }
 

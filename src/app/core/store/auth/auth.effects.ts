@@ -6,6 +6,7 @@ import {
   IAuthenticationResult,
   IJwtTokens,
   IQlError,
+  IUser,
   QlErrorClass,
 } from '@app/models';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -18,6 +19,9 @@ import {
   RefreshToken,
   RefreshTokenError,
   RefreshTokenSuccess,
+  Register,
+  RegisterError,
+  RegisterSuccess,
   SetRefreshTokenInProgress,
 } from './auth.actions';
 import { AuthService } from '../../auth/auth.service';
@@ -46,6 +50,31 @@ export class AuthEffects {
                 errors: {
                   ...iWsError,
                   messageToShow: 'Login error',
+                },
+              })
+            );
+          })
+        )
+      )
+    );
+  });
+
+  RegisterEffect = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(Register),
+      switchMap((data) =>
+        this.authService.register(data.request).pipe(
+          map((user: IUser) => {
+            this.store.dispatch(RegisterSuccess({ user }));
+            return GetCurrentUser();
+          }),
+          catchError((error: HttpErrorResponse) => {
+            const iWsError: IQlError = new QlErrorClass(error);
+            return of(
+              RegisterError({
+                errors: {
+                  ...iWsError,
+                  messageToShow: 'Register error',
                 },
               })
             );

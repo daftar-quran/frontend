@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { RECITATIONS_MODULES_API_URL } from '@app/config';
 import { Observable, of } from 'rxjs';
 import { IConsolidation } from '../models';
+import { Appreciation } from '@app/enums';
 
 @Injectable()
 export class ConsolidationsService {
@@ -61,9 +62,14 @@ function generateConsolidationData(): IConsolidation[] {
       page: Math.floor(Math.random() * 100) + 1, // Random page number between 1 and 100
       date: getRandomDate(),
       sura: `Sura ${i}`,
+      chaikh: `Chaikh ${Math.floor(Math.random() * 7) + 1}`,
+      appreciation:
+        Object.values(Appreciation)[
+          Math.floor(Math.random() * Object.keys(Appreciation).length)
+        ],
+      observation: `Obesrvation Obesrvation Obesrvation Obesrvation ${i}`,
       tikrar: Math.floor(Math.random() * 30) + 1,
     };
-
     data.push(consolidation);
   }
 

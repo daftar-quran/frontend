@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { MIN_PAGE_SIZE_OPTIONS } from '@app/config';
 import { IConsolidation } from 'app/features/consolidations/models';
@@ -32,6 +33,7 @@ import { ConsolidationsStore } from '../../../consolidations.store';
     MatIconModule,
     MatButtonModule,
     MatCardModule,
+    MatTooltipModule,
   ],
 })
 export class ConsolidationsSearchTableComponent {
@@ -43,7 +45,15 @@ export class ConsolidationsSearchTableComponent {
   @ViewChild(MatSort) sort: MatSort;
 
   public MIN_PAGE_SIZE_OPTIONS = MIN_PAGE_SIZE_OPTIONS;
-  public columns = ['page', 'date', 'sura', 'tikrar', 'actions'];
+  public columns = [
+    'page',
+    'date',
+    'sura',
+    'chaikh',
+    'appreciation',
+    'observation',
+    'tikrar',
+  ];
   public consolidations$: Observable<IConsolidation[]> =
     this.consolidationsStore.allConsolidations$.pipe(
       tap((consolidations) => {
@@ -65,11 +75,12 @@ export class ConsolidationsSearchTableComponent {
 
   public consolidations: MatTableDataSource<IConsolidation>;
 
-  /**
-   * Navigates to the permissions page for the given consolidation.
-   * @param consolidation IConsolidation.
-   */
-  public goToDetails(consolidation: IConsolidation): void {
-    this.router.navigate(['/p/settings/consolidations', consolidation.id]);
+  public addTikrar(element: IConsolidation): void {
+    //call add Tikrar api
+    element.tikrar++;
+  }
+  public subtractTikrar(element: IConsolidation): void {
+    //call subtract Tikrar api
+    element.tikrar--;
   }
 }

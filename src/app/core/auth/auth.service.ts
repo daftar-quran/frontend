@@ -1,9 +1,9 @@
-import { inject, Injectable } from '@angular/core';
-import { ILogin, LoginRequest, RefreshTokenRequest } from './models';
-import { Observable } from 'rxjs';
-import { IJwtTokens } from '@app/models';
-import { environment } from '../../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { IJwtTokens, IUser } from '@app/models';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { ILogin, LoginRequest, RefreshTokenRequest } from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +25,15 @@ export class AuthService {
       new LoginRequest(data),
       { headers: this.headers }
     );
+  }
+
+  /**
+   * enregistrer un nouvel utilisateur
+   * @param data <IUser>
+   * @return Observable<IUser>
+   */
+  public register(data: IUser): Observable<IUser> {
+    return this.http.post<IUser>(`${environment.apiUrl}/v1/users`, data);
   }
 
   /**
