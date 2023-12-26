@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   FormArray,
   FormControl,
@@ -12,6 +12,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { RouterLink } from '@angular/router';
+import { IUser } from '@app/models';
+import { Store } from '@ngrx/store';
+import { Register } from 'app/core/store/auth/auth.actions';
+import * as moment from 'moment';
 import {
   IRegisterContactFormGroup,
   IRegisterPageFormGroup,
@@ -41,22 +45,23 @@ import { RegisterPersonalComponent } from './register-personal/register-personal
   ],
 })
 export class RegisterComponent {
+  private store: Store = inject(Store);
+
   public contactFormGroup: FormGroup<IRegisterContactFormGroup> =
     new FormGroup<IRegisterContactFormGroup>({
       email: new FormControl<string>('', [
         Validators.required,
         Validators.email,
       ]),
-      userName: new FormControl<string>('', Validators.required),
+      pseudo: new FormControl<string>('', Validators.required),
       password: new FormControl<string>('', Validators.required),
     });
 
   public personalFormGroup: FormGroup<IRegisterPersonalFormGroup> =
     new FormGroup<IRegisterPersonalFormGroup>({
-      firstName: new FormControl<string>('', Validators.required),
-      lastName: new FormControl<string>('', Validators.required),
-      city: new FormControl<string>('', Validators.required),
-      birthDate: new FormControl<string>('', Validators.required),
+      firstname: new FormControl<string>('', Validators.required),
+      lastname: new FormControl<string>('', Validators.required),
+      birthdate: new FormControl<string>('', Validators.required),
     });
 
   public pagesFormGroup: FormArray<FormGroup<IRegisterPageFormGroup>> =
@@ -68,12 +73,14 @@ export class RegisterComponent {
    * Récupération de du register et mot de passe et authentification de l'utilisateur
    */
   public onSubmit(): void {
-    const request: unknown = {
+    const request: IUser = {
       ...this.contactFormGroup.getRawValue(),
       ...this.personalFormGroup.getRawValue(),
-      ...this.pagesFormGroup.getRawValue(),
+      birthdate: moment(this.personalFormGroup.getRawValue().birthdate).format(
+        'YYYY-MM-DD'
+      ),
+      // ...this.pagesFormGroup.getRawValue(),
     };
-    console.log(request);
-    //   this.store.dispatch(Register({ request }));
+    this.store.dispatch(Register({ request }));
   }
 }

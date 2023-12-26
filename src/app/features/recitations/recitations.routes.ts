@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 import { RecitationsComponent } from './components/recitations.component';
-import { RecitationFormComponent } from './components/recitations-search/recitations-search-form/recitation-form.component';
+import { RecitationFormComponent } from './components/recitations-form/recitation-form.component';
 
 export default [
   {
