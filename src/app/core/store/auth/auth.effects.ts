@@ -16,6 +16,7 @@ import { map } from 'rxjs/operators';
 import { AuthService } from '../../auth/auth.service';
 import {
   GetCurrentUser,
+  InitializeAuthState,
   Login,
   LoginError,
   LoginSuccess,
@@ -126,6 +127,16 @@ export class AuthEffects {
           })
         )
       )
+    );
+  });
+
+  LogoutEffect = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(Logout),
+      map(() => {
+        this.router.navigate(['/login']);
+        return InitializeAuthState();
+      })
     );
   });
 }
