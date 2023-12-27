@@ -1,0 +1,157 @@
+@use '../variable' as *;
+
+/* Center the content of mat-header-cell, mat-cell and mat-footer-cell */
+.mat-mdc-header-cell,
+.mat-mdc-cell,
+.mat-mdc-footer-cell {
+  justify-content: center;
+  text-align: center;
+}
+
+.mat-mdc-row {
+  cursor: pointer;
+
+  /* For visual separation */
+  &:nth-child(even) {
+    background-color: #f6f6f6;
+  }
+
+  /* Add hover effect on rows */
+  &:hover {
+    background-color: #e2e2e2 !important;
+  }
+
+  .mat-mdc-header-row {
+    background-color: $nested-table-header-bg !important;
+
+    .mat-mdc-header-cell,
+    .mat-sort-header-arrow {
+      color: $nested-table-header-text !important;
+    }
+  }
+}
+
+.mat-mdc-header-row {
+  background-color: $primary !important;
+
+  .mat-mdc-header-cell,
+  .mat-sort-header-arrow {
+    color: white !important;
+  }
+}
+
+/**********************
+Overall Responsive table
+***********************/
+@mixin responsive-table-desktop {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+
+  .header-label {
+    display: none;
+  }
+
+  .mat-mdc-table {
+    overflow: auto;
+    max-height: 100%;
+
+    .mat-mdc-header-cell {
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .mat-mdc-cell {
+      text-align: center;
+      word-break: break-word;
+
+      &:last-of-type {
+        padding-right: 24px;
+      }
+    }
+
+    .mat-column-select,
+    .mat-column-expand {
+      flex: 0 0 5%;
+    }
+  }
+}
+
+@mixin responsive-table-tablette {
+  /* Display label (display:none by default -see above-) */
+  .header-label {
+    display: inline-block;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  /* Hide the header row */
+  .mat-mdc-header-row {
+    display: none;
+  }
+
+  /* Change the layout of the rows to stack vertically */
+  .mat-mdc-row,
+  .mat-mdc-footer-row {
+    padding: 8px 15px;
+    display: block;
+
+    /* Override the after pseudo-element to occupy the entire height */
+    &::after {
+      min-height: unset;
+    }
+  }
+
+  /* Adjust the layout and styling of the cells to display label-value in each row */
+  .mat-mdc-cell,
+  .mat-mdc-footer-cell {
+    display: grid;
+    padding: 0.1rem 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+
+    &:has(.header-label) {
+      grid-template-columns: 50% 50%;
+      text-align: right;
+    }
+
+    &:last-of-type {
+      border-bottom: none;
+      padding-right: 0.5rem !important;
+    }
+  }
+
+  .mat-mdc-table-sticky {
+    position: unset !important;
+  }
+
+  /* Action columns must be named (action or actions) */
+  .mat-column-expand,
+  .mat-column-action,
+  .mat-column-actions {
+    display: flex !important;
+    justify-content: flex-end !important;
+    padding-right: 0 !important;
+  }
+}
+
+.responsive-table {
+  @include responsive-table-desktop;
+}
+.dashboard-table {
+  @include responsive-table-desktop;
+}
+@media (max-width: 601px) {
+  .dashboard-table {
+    @include responsive-table-tablette;
+  }
+}
+
+/* -- ==============================================================
+ Ipad & above all(1023px)
+ ============================================================== */
+@media (max-width: 1024px) {
+  .responsive-table {
+    @include responsive-table-tablette;
+  }
+}

@@ -7,7 +7,6 @@ export const selectIsAuthenticated = createSelector(
   selectAuth,
   (state: AuthState) =>
     !!(
-      state.user?.id &&
       state.jwtTokens.AuthenticationResult.AccessToken &&
       state.jwtTokens.AuthenticationResult.RefreshToken
     )

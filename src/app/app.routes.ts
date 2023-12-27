@@ -15,27 +15,27 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./features/authentication/authentication.routes'),
       },
+    ],
+  },
+
+  {
+    path: 'p',
+    component: PrivateLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
       {
-        path: 'p',
-        component: PrivateLayoutComponent,
-        canActivate: [AuthGuard],
-        children: [
-          {
-            path: '',
-            redirectTo: 'recitations',
-            pathMatch: 'full',
-          },
-          {
-            path: 'recitations',
-            loadChildren: () =>
-              import('./features/recitations/recitations.routes'),
-          },
-          {
-            path: 'consolidations',
-            loadChildren: () =>
-              import('./features/consolidations/consolidations.routes'),
-          },
-        ],
+        path: '',
+        redirectTo: 'recitations',
+        pathMatch: 'full',
+      },
+      {
+        path: 'recitations',
+        loadChildren: () => import('./features/recitations/recitations.routes'),
+      },
+      {
+        path: 'consolidations',
+        loadChildren: () =>
+          import('./features/consolidations/consolidations.routes'),
       },
     ],
   },

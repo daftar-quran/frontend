@@ -27,9 +27,16 @@ import {
   Register,
   RegisterError,
   RegisterSuccess,
+  SaveAuthState,
   SetRefreshTokenInProgress,
 } from './auth.actions';
-import { selectJwtTokens } from './auth.selectors';
+import { selectAuth, selectJwtTokens } from './auth.selectors';
+import { AuthState } from './auth.reducer';
+import { LOCAL_STORAGE_KEYS } from '@app/config';
+import {
+  LocalStorageClear,
+  LocalStorageSetItem,
+} from '../../storage/localStorage.helper';
 
 @Injectable()
 export class AuthEffects {
@@ -46,6 +53,8 @@ export class AuthEffects {
         this.authService.login(data.request).pipe(
           map((jwtTokens: IJwtTokens) => {
             this.store.dispatch(LoginSuccess({ jwtTokens }));
+            this.router.navigate(['/p']);
+            this.store.dispatch(SaveAuthState());
             return GetCurrentUser();
           }),
           catchError((error: HttpErrorResponse) => {
@@ -134,9 +143,23 @@ export class AuthEffects {
     return this.actions$.pipe(
       ofType(Logout),
       map(() => {
+        LocalStorageClear();
         this.router.navigate(['/login']);
         return InitializeAuthState();
       })
     );
   });
+
+  SaveAuthStateEffect = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(SaveAuthState),
+        concatLatestFrom(() => this.store.select(selectAuth)),
+        tap(([, authStore]: [unknown, AuthState]) =>
+          LocalStorageSetItem(LOCAL_STORAGE_KEYS.auth, authStore)
+        )
+      );
+    },
+    { dispatch: false }
+  );
 }

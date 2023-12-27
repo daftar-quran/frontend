@@ -6,60 +6,90 @@
           <mat-table [dataSource]="consolidations" matSort>
             <!-- Page -->
             <ng-container matColumnDef="page">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>
+              <mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                class="flex-[1_1_5%]"
+              >
                 Page
               </mat-header-cell>
-              <mat-cell *matCellDef="let element">
+              <mat-cell *matCellDef="let element" class="flex-[1_1_5%]">
+                <span class="header-label">Page</span>
                 {{ element.page }}
               </mat-cell>
             </ng-container>
 
             <!-- Date -->
             <ng-container matColumnDef="date">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>
+              <mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                class="flex-[1_1_10%]"
+              >
                 Date
               </mat-header-cell>
-              <mat-cell *matCellDef="let element">
+              <mat-cell *matCellDef="let element" class="flex-[1_1_10%]">
+                <span class="header-label">Date</span>
                 {{ element.date }}
               </mat-cell>
             </ng-container>
 
             <!-- Sura -->
             <ng-container matColumnDef="sura">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>
+              <mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                class="flex-[1_1_10%]"
+              >
                 Sourat
               </mat-header-cell>
-              <mat-cell *matCellDef="let element">
+              <mat-cell *matCellDef="let element" class="flex-[1_1_10%]">
+                <span class="header-label">Sourat</span>
                 {{ element.sura }}
               </mat-cell>
             </ng-container>
 
             <!-- Chaikh -->
             <ng-container matColumnDef="chaikh">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>
+              <mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                class="flex-[1_1_10%]"
+              >
                 Chaikh
               </mat-header-cell>
-              <mat-cell *matCellDef="let element">
+              <mat-cell *matCellDef="let element" class="flex-[1_1_10%]">
+                <span class="header-label">Chaikh</span>
                 {{ element.chaikh }}
               </mat-cell>
             </ng-container>
 
             <!-- Appreciation -->
             <ng-container matColumnDef="appreciation">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>
+              <mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                class="flex-[1_1_5%]"
+              >
                 Appreciation
               </mat-header-cell>
-              <mat-cell *matCellDef="let element">
+              <mat-cell *matCellDef="let element" class="flex-[1_1_5%]">
+                <span class="header-label">Appreciation</span>
                 {{ element.appreciation }}
               </mat-cell>
             </ng-container>
 
             <!-- Observation -->
             <ng-container matColumnDef="observation">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>
+              <mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                class="flex-[1_1_25%]"
+              >
                 Observation
               </mat-header-cell>
-              <mat-cell *matCellDef="let element">
+              <mat-cell *matCellDef="let element" class="flex-[1_1_25%]">
+                <span class="header-label">Observation</span>
                 <span class="truncate" [matTooltip]="element.observation">
                   {{ element.observation }}
                 </span>
@@ -68,10 +98,14 @@
 
             <!-- Tikrar -->
             <ng-container matColumnDef="tikrar">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>
+              <mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                class="flex-[1_1_15%]"
+              >
                 Tikrar
               </mat-header-cell>
-              <mat-cell *matCellDef="let element">
+              <mat-cell *matCellDef="let element" class="flex-[1_1_15%]">
                 <div class="flex items-center gap-2">
                   <button
                     mat-icon-button
