@@ -33,7 +33,7 @@ export class AuthService {
    * @return Observable<IUser>
    */
   public register(data: IUser): Observable<IUser> {
-    return this.http.post<IUser>(`${environment.apiUrl}/v1/users`, data);
+    return this.http.post<IUser>(`${environment.apiUrl}/users`, data);
   }
 
   /**
