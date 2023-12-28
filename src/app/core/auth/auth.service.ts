@@ -21,7 +21,7 @@ export class AuthService {
    */
   public login(data: ILogin): Observable<IJwtTokens> {
     return this.http.post<IJwtTokens>(
-      `${environment.apiUrl}`,
+      `${environment.authUrl}`,
       new LoginRequest(data),
       { headers: this.headers }
     );
@@ -43,9 +43,18 @@ export class AuthService {
    */
   refreshToken(refresh_token: string): Observable<IJwtTokens> {
     return this.http.post<IJwtTokens>(
-      `${environment.apiUrl}`,
+      `${environment.authUrl}`,
       new RefreshTokenRequest(refresh_token),
       { headers: this.headers }
     );
+  }
+
+  /**
+   * get current user data
+   * @param data <IUser>
+   * @return Observable<IUser>
+   */
+  public me(): Observable<IUser> {
+    return this.http.get<IUser>(`${environment.apiUrl}/me`);
   }
 }

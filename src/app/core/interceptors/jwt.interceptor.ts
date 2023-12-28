@@ -38,10 +38,10 @@ export class JwtInterceptor implements HttpInterceptor {
       .pipe(
         filter(
           (jwtTokens: IAuthenticationResult) =>
-            !this.accessToken || this.accessToken !== jwtTokens.AccessToken
+            !this.accessToken || this.accessToken !== jwtTokens.IdToken
         ),
         tap((jwtTokens: IAuthenticationResult) => {
-          this.accessToken = jwtTokens.AccessToken;
+          this.accessToken = jwtTokens.IdToken;
           this.refreshToken = jwtTokens.RefreshToken;
           this.refreshTokenSubject.next(this.accessToken);
         })

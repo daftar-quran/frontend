@@ -16,6 +16,8 @@ import { map } from 'rxjs/operators';
 import { AuthService } from '../../auth/auth.service';
 import {
   GetCurrentUser,
+  GetUserError,
+  GetUserSuccess,
   InitializeAuthState,
   Login,
   LoginError,
@@ -81,7 +83,7 @@ export class AuthEffects {
           map((user: IUser) => {
             this.router.navigate(['/login']);
             this.toastr.success(
-              "Opération terminée avec succès. Un email a été envoyé à l'adresse indiquée pour vous permettre de créer un mot de passe"
+              "Opération terminée avec succès. Un email a été envoyé à l'adresse indiquée pour valider votre compte"
             );
 
             return RegisterSuccess({ user });
@@ -162,4 +164,26 @@ export class AuthEffects {
     },
     { dispatch: false }
   );
+
+  GetCurrentUserEffect = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(GetCurrentUser),
+      switchMap(() =>
+        this.authService.me().pipe(
+          map((user: IUser) => GetUserSuccess({ user })),
+          catchError((error: HttpErrorResponse) => {
+            return of(
+              GetUserError({
+                errors: {
+                  ...new QlErrorClass(error),
+                  messageToShow:
+                    'Erreur lors de la récupération des données utilisateur',
+                },
+              })
+            );
+          })
+        )
+      )
+    );
+  });
 }

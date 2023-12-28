@@ -3,6 +3,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 import {
   ForgotResetPasswordError,
   GetUserError,
+  GetUserSuccess,
   InitializeAuthState,
   LoginError,
   LoginSuccess,
@@ -36,6 +37,7 @@ const featureReducer = createReducer(
     RefreshTokenSuccess,
     SetRefreshTokenInProgress,
     ForgotResetPasswordError,
+    GetUserSuccess,
     (state, action) => ({
       ...state,
       ...action,
